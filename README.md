@@ -59,6 +59,15 @@ const hello = () => {
 };
 hello();
 ```
+Also created a `babel.config.js` file with the following content:
+
+```javascript 
+module.exports = {
+  presets: [
+    '@babel/preset-env'
+  ]
+};
+```
 
 Now you can run the build command:
 
@@ -81,4 +90,76 @@ const hello = () => {
 };
 hello();%   
 ```
+## Example with an included plugin
 
+Now we add an example using an included plugin, such as `transform-optional-chaining`:
+
+```js 
+➜  hello git:(main) ✗ cat src/deeply-nested-properties.js 
+// Example Accessing deeply nested properties 
+// https://babeljs.io/docs/babel-plugin-transform-optional-chaining#accessing-deeply-nested-properties
+// Run it with: npx babel --plugins @babel/plugin-transform-optional-chaining script.js
+const obj = {
+  foo: {
+    bar: {
+      baz: 42,
+    },
+  },
+};
+
+const baz = obj?.foo?.bar?.baz; // 42
+
+const safe = obj?.qux?.baz; // undefined
+
+// Optional chaining and normal chaining can be intermixed
+obj?.foo.bar?.baz; // Only access `foo` if `obj` exists, and `baz` if
+// `bar` exists
+
+// Example usage with bracket notation:
+obj?.["foo"]?.bar?.baz; // 42
+```
+Now we need to update the `babel.config.js` file to include the `transform-optional-chaining` plugin:
+
+```js 
+➜  hello git:(main) cat babel.config.js 
+export default {
+  presets: [["@babel/preset-env", 
+    {
+      include: ["transform-optional-chaining"],
+    }
+  ]],
+}%    
+```
+
+And when we run the build command again:
+
+```bash
+➜  hello git:(main) ✗ npm run build
+```
+The output will be:
+
+```js
+➜  hello git:(main) ✗ cat lib/deeply-nested-properties.js 
+"use strict";
+
+var _obj$foo, _obj$qux, _obj$foo$bar, _obj$foo2;
+// Example Accessing deeply nested properties 
+// https://babeljs.io/docs/babel-plugin-transform-optional-chaining#accessing-deeply-nested-properties
+// Run it with: npx babel --plugins @babel/plugin-transform-optional-chaining script.js
+const obj = {
+  foo: {
+    bar: {
+      baz: 42
+    }
+  }
+};
+const baz = obj === null || obj === void 0 || (_obj$foo = obj.foo) === null || _obj$foo === void 0 || (_obj$foo = _obj$foo.bar) === null || _obj$foo === void 0 ? void 0 : _obj$foo.baz; // 42
+
+const safe = obj === null || obj === void 0 || (_obj$qux = obj.qux) === null || _obj$qux === void 0 ? void 0 : _obj$qux.baz; // undefined
+
+// Optional chaining and normal chaining can be intermixed
+obj === null || obj === void 0 || (_obj$foo$bar = obj.foo.bar) === null || _obj$foo$bar === void 0 || _obj$foo$bar.baz; // Only access `foo` if `obj` exists, and `baz` if
+// `bar` exists
+
+// Example usage with bracket notation:
+obj === null || obj === void 0 || (_obj$foo2 = obj["foo"]) === null || _obj$foo2 === void 0 || (_obj$foo2 = _obj$foo2.bar) === null || _obj$foo2 === void 0 ? void 0 : _obj$foo2.baz; // 42%  
