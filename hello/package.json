@@ -1,5 +1,5 @@
 {
-  "name": "hello",
+  "name": "learning-babel8",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -8,10 +8,25 @@
   "keywords": [],
   "author": "Casiano Rodriguez Leon <crguezl@ull.edu.es> (https://crguezl.github.io/)",
   "license": "ISC",
-  "description": "",
+  "description": "Learning Babel 8",
+  "peerDependencies": { 
+    "@babel/core": "^8.0.0"
+  },
   "dependencies": {
     "@babel/cli": "^8.0.0-beta.0",
     "@babel/core": "^8.0.0-beta.0",
     "@babel/preset-env": "^8.0.0-beta.0"
-  }
+  },
+  "directories": {
+    "lib": "lib"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ULL-ESIT-PL/learning-babel8.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ULL-ESIT-PL/learning-babel8/issues"
+  },
+  "homepage": "https://github.com/ULL-ESIT-PL/learning-babel8#readme"
 }

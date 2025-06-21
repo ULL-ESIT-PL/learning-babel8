@@ -163,3 +163,14 @@ obj === null || obj === void 0 || (_obj$foo$bar = obj.foo.bar) === null || _obj$
 
 // Example usage with bracket notation:
 obj === null || obj === void 0 || (_obj$foo2 = obj["foo"]) === null || _obj$foo2 === void 0 || (_obj$foo2 = _obj$foo2.bar) === null || _obj$foo2 === void 0 ? void 0 : _obj$foo2.baz; // 42%  
+
+
+## hello/src/hello-babel.js
+
+Example taken from https://github.com/ULL-ESIT-PL/babel-learning?tab=readme-ov-file#babeltransformsync.
+Worked without changes:
+
+```console
+➜  hello git:(main) ✗ npx babel src/hello-babel.js | node | node
+Hello, Babel!
+```
